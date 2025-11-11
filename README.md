@@ -1,1 +1,55 @@
-# mau
+#include <iostream>
+#include <cmath>
+#include <numbers>
+#include <iomanip>
+using namespace std;
+//* f(x) = sin(19/47) + 30*pi - 53*e * (5/((x-8)*(x+3))) + 5*atan(x-12) - log_base14(x+9)
+double f(double x) {
+    return sin(19.0 / 47.0)
+         + 30.0 * numbers::pi
+         - 53.0 * numbers::e * (5.0 / ((x - 8.0) * (x + 3.0)))
+         + 5.0 * atan(x - 12.0)
+         - (log(x + 9.0) / log(14.0)); // змінюємо основу логарифма через формулу
+}
+//Перевіряє належність x області визначення функції.
+//Викликається не більше одного разу
+bool in_domain(double x) {
+    return (x > -9.0) && (x != -3.0) && (x != 8.0);
+}
+int main() {
+    // 1) Повідомити виконавця
+    cout << "Executor: Burenok Kristina";
+    // 2) Призначення програми (номер варіанту та стисло умова, формулу не виводимо)
+    cout << "Variant: 75";
+    cout << "Program calculates value of the specified function for real variable x.";
+    // 3) Ввести вхідні дані;
+    cout << "Enter real value x: ";
+    double x;
+    cin >> x;
+    if (cin.fail()) {
+        cout << "wrong input";
+        return 0;
+    }
+
+    // 4) з нового рядка вивести *do calculations ...
+    cout << "***** do calculations ... ";
+    // 5) Провести математичні обчислення
+    double result;
+    bool defined = in_domain(x);
+    if (defined) {
+        result = f(x);
+    }
+        // 6) done 
+        cout << "done";
+    // 7) Виведення введених даних (7 знаків після крапки)
+    cout << format("for x = {:.7f}\n", x);
+
+    // 8) Виведення результату (8 знаків після крапки)
+    if (!defined) {
+        cout << "result = undefined";
+    } else {
+        cout << format("result = {:.8f}", result);
+    }
+
+    return 0;
+}
